@@ -1,0 +1,76 @@
+{
+  "paths": {
+    "/public/heartbeat": {
+      "get": {
+        "summary": "Status of the backend.",
+        "description": "Returns a JSON object with simple on/off status messages from the backend and database connection.",
+        "responses": {
+          "200": {
+            "description": "Successfully returned the status object.",
+            "schema": {
+              "x-oad-type": "object",
+              "type": "object",
+              "properties": {
+                "message": {
+                  "x-oad-type": "string",
+                  "type": "string",
+                  "default": "Hello from heartbeat!",
+                  "readOnly": true
+                },
+                "database": {
+                  "x-oad-type": "string",
+                  "type": "string",
+                  "enum": [
+                    "Connected."
+                  ],
+                  "default": "Not connected.",
+                  "readOnly": true
+                },
+                "date": {
+                  "x-oad-type": "string",
+                  "type": "string",
+                  "default": "JS_date_string",
+                  "readOnly": true
+                }
+              }
+            },
+            "x-oad-type": "response"
+          },
+          "500": {
+            "description": "Failed to return the status object.",
+            "x-oad-type": "response"
+          }
+        }
+      },
+      "x-oad-type": "operation"
+    },
+  "securityDefinitions": {
+    "": {
+      "description": "Use the Authorization header with the Bearer scheme. Ex: Authorization: Bearer jksfdg9ppdi.jooff0oiwkwd2kdk333.kdo3jodsosdoksd",
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey"
+    }
+  },
+  "info": {
+    "title": "Example API",
+    "version": "0.1.0",
+    "description": "API Backend",
+    "contact": {
+      "name": "Johannes Skjærbæk",
+      "email": "johannes.skjaerbaek@gmail.com"
+    }
+  },
+  "externalDocs": {
+    "url": "https://github.com/Johnhundred/API_Example"
+  },
+  "host": "update-this-link.herokuapp.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0"
+}

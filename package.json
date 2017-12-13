@@ -1,0 +1,48 @@
+{
+  "name": "API-Example",
+  "version": "0.2.0",
+  "private": true,
+  "engines": {
+    "node": "8.9.3"
+  },
+  "scripts": {
+    "start": "node_modules/.bin/sequelize db:migrate && node ./bin/production",
+    "dev": "node_modules/.bin/sequelize db:migrate && nodemon ./bin/development",
+    "lint": "./node_modules/eslint/bin/eslint.js app/**/*.js bin/**/*.js lib/**/*.js test/**/*.js",
+    "test": "npm run lint && mocha test/*.js --exit"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^4.0.1",
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.1",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "querystring": "^0.2.0",
+    "request": "^2.83.0",
+    "sequelize": "^4.18.0",
+    "sequelize-cli": "^3.0.0",
+    "validator": "^9.1.1",
+    "winston": "^2.4.0",
+    "xss-filters": "^1.2.7"
+  }
+}

@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  app:
+    build:
+      dockerfile: Dockerfile-app
+      context: .
+    command: npm run dev
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+    volumes:
+      - ./:/app
+
+  db:
+    image: postgres:10.0-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data

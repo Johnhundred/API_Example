@@ -1,0 +1,103 @@
+#!/usr/bin/env node
+require('dotenv').config({ path: '../testing.env' });
+
+/**
+ * Module dependencies.
+ */
+
+const settings = require('../app/config/settings');
+const app = require('../app/index');
+const debug = require('debug')('API-backend:server');
+const http = require('http');
+const Models = require('../app/models/');
+
+/**
+ * Get port from environment.
+ */
+
+const port = normalizePort(settings.port); // eslint-disable-line
+
+/**
+ * Store port in Express.
+ */
+
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+const server = http.createServer(app);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  const portVal = parseInt(val, 10);
+
+  if (Number.isNaN(portVal)) {
+    // named pipe
+    return val;
+  }
+
+  if (portVal >= 0) {
+    // port number
+    return portVal;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  const bind = typeof port === 'string'
+    ? `Pipe ${port}`
+    : `Port ${port}`;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === 'string'
+    ? `pipe ${addr}`
+    : `pipe ${addr.port}`;
+  debug(`Listening on ${bind}`);
+}
+
+/**
+ * Synchronize the database, then listen on the provided port on all network interfaces,
+ * if the DB connection went well.
+ */
+
+Models.sequelize.sync({ force: true }).then(() => {
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+});
+
+module.exports = server.listen(port);

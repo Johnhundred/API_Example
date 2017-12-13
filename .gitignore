@@ -1,0 +1,17 @@
+# Dependency directory
+# https://docs.npmjs.com/cli/shrinkwrap#caveats
+node_modules
+
+# Debug log from npm
+npm-debug.log
+
+# Logs
+logs/*.log
+
+# Other
+postgres-data
+.idea/
+development.env
+
+# Preferably unnecessary, set production environment vars as part of deploy. But, for now:
+.env
