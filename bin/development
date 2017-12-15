@@ -95,8 +95,12 @@ function onListening() {
  */
 
 Models.sequelize.sync({ force: false })
-  .then(() => {
+  .then(() => { // eslint-disable-line
     server.listen(port);
     server.on('error', onError);
     server.on('listening', onListening);
   })
+  .catch((err) => {
+    // Something went wrong, throw uncaught error to restart the server.
+    throw err;
+  });

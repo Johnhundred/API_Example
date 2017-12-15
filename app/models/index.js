@@ -35,11 +35,12 @@ if (url) {
 
   sequelize
     .authenticate()
-    .then(() => {
+    .then(() => { // eslint-disable-line
       logDatabaseMessages.info('Database connection established.');
     })
     .catch((err) => {
-      logDatabaseMessages.error('Unable to connect to the database:', err);
+      logDatabaseMessages.error('Unable to connect to the database:', JSON.stringify(err));
+      throw err;
     });
 } else {
   sequelize = new Sequelize(dbName, user, password, {
@@ -61,11 +62,12 @@ if (url) {
 
   sequelize
     .authenticate()
-    .then(() => {
+    .then(() => { // eslint-disable-line
       logDatabaseMessages.info('Database connection established.');
     })
     .catch((err) => {
       logDatabaseMessages.info('Unable to connect to the database:', err);
+      throw err;
     });
 }
 

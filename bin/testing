@@ -94,10 +94,15 @@ function onListening() {
  * if the DB connection went well.
  */
 
-Models.sequelize.sync({ force: true }).then(() => {
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening);
-});
+Models.sequelize.sync({ force: true })
+  .then(() => { // eslint-disable-line
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+  })
+  .catch((err) => {
+    // Something went wrong, throw uncaught error to restart the server.
+    throw err;
+  });
 
 module.exports = server.listen(port);

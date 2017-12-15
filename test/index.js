@@ -6,24 +6,24 @@ chai.use(chaiHttp);
 const should = chai.should(); // eslint-disable-line
 const {
   assert,
+  expect, // eslint-disable-line
 } = chai;
 
 // Example
-describe('Array', () => { // eslint-disable-line
-  it('should start empty', () => { // eslint-disable-line
+describe('Array', () => {
+  it('should start empty', () => {
     const arr = [];
 
     assert.equal(arr.length, 0);
   });
 });
 
-// Example
-describe('Heartbeat', () => { // eslint-disable-line
-  it('should return a response', (done) => { // eslint-disable-line
+describe('Random undefined endpoint', () => {
+  it('should return 404', (done) => {
     chai.request(server)
-      .get('/api/public/heartbeat')
+      .get('/e8r9iofj9iewdjfkld')
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(404);
         done();
       });
   });
