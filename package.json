@@ -6,6 +6,8 @@
     "node": "8.9.3"
   },
   "scripts": {
+    "precommit": "npm test",
+    "prepush": "npm test",
     "start": "node_modules/.bin/sequelize db:migrate && node ./bin/production",
     "dev": "node_modules/.bin/sequelize db:migrate && nodemon ./bin/development",
     "lint": "./node_modules/eslint/bin/eslint.js app/**/*.js bin/**/*.js lib/**/*.js test/**/*.js",
@@ -23,6 +25,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "husky": "^0.14.3",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1"
   },
