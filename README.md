@@ -31,4 +31,4 @@ On following startups, you should only need this command:
 docker-compose up
 ```
 
-This will tail the compose logs, and thus free you from having to continually retype docker-compose logs to access them. Terminate the process via Ctrl-c. If you need to run docker and maintain control of the terminal, add the -d flag in (Ex: docker-compose up -d), as this will run docker in the background.
+This will tail the compose logs, and thus free you from having to continually retype docker-compose logs to access them. Terminate the process via Ctrl-c. If you need to run docker and maintain control of the terminal, add the -d flag in (Ex: docker-compose up -d), as this will run docker in detached mode/in the background.
