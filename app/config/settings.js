@@ -34,7 +34,7 @@ const dirArray = thisDir.split('/');
 const rootDir = `/${dirArray[1]}/`;
 
 // Config vars
-module.exports = {
+const vars = {
   port: process.env.PORT || 3000,
   env: process.env.NODE_ENV || 'development',
   rootDir,
@@ -56,6 +56,7 @@ module.exports = {
       url: process.env.DATABASE_URL || false,
     },
   },
+
   production: {
     db: {
       connectionCount: process.env.DATABASE_CONNECTION_COUNT || 10,
@@ -69,4 +70,20 @@ module.exports = {
       url: process.env.DATABASE_URL || false,
     },
   },
+
+  testing: {
+    db: {
+      connectionCount: process.env.DATABASE_CONNECTION_COUNT || 5,
+      minConnectionCount: process.env.DATABASE_MIN_CONNECTION_COUNT || 0,
+      connectionIdleTimeout: process.env.DATABASE_CONNECTION_TIMEOUT || 10000,
+      user: process.env.POSTGRES_USER || 'postgres',
+      password: process.env.POSTGRES_PASSWORD || 'admin',
+      dbName: process.env.POSTGRES_DB || 'local_dev',
+      host: process.env.POSTGRES_HOST || '172.17.0.1',
+      port: process.env.POSTGRES_PORT || 5432,
+      url: process.env.DATABASE_URL || false,
+    },
+  },
 };
+
+module.exports = vars;

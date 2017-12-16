@@ -1,30 +1,34 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const compress = require('compression');
+const helmet = require('helmet');
 const authenticationRoute = require('./routes/authentication');
 const logger = require('./modules/logger');
+const settings = require('./config/settings');
 const { ErrorHandler } = require('./modules/error');
 
 const app = express();
 
+// Streaming morgan HTTP request logging to winston.
+app.use(require('morgan')('combined', { stream: logger.stream }));
+
+// Parse body parameters and attach them to the request: request.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Dev settings
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+// Enable CORS for production
+if (settings.env === 'production') {
+  app.use(cors({ origin: false }));
+}
 
-  // intercept OPTIONS method
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-  } else {
-    next();
-  }
-});
+app.use(cors({ origin: false }));
 
-// Streaming morgan HTTP request logging to winston.
-app.use(require('morgan')('combined', { stream: logger.stream }));
+// Enable gzip compression
+app.use(compress());
+
+// Basic security
+app.use(helmet());
 
 app.use('api/authentication', authenticationRoute);
 
