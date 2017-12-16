@@ -87,4 +87,8 @@ const vars = {
   },
 };
 
+if (vars.env === 'testing') {
+  vars.port = 3001;
+}
+
 module.exports = vars;

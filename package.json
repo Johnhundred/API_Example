@@ -8,11 +8,11 @@
   "scripts": {
     "precommit": "npm test",
     "prepush": "npm test",
-    "start": "node_modules/.bin/sequelize db:migrate && node ./bin/production",
-    "dev": "node_modules/.bin/sequelize db:migrate && nodemon ./bin/development",
+    "start": "node_modules/.bin/sequelize db:migrate && NODE_ENV=production node ./bin/production",
+    "dev": "node_modules/.bin/sequelize db:migrate && NODE_ENV=development nodemon ./bin/development",
     "lint": "./node_modules/eslint/bin/eslint.js app/**/*.js bin/**/*.js lib/**/*.js test/**/*.js",
     "pretest": "docker-compose -f docker-compose-test.yml up -d",
-    "test": "npm run lint && mocha test/*.js --exit",
+    "test": "NODE_ENV=testing npm run lint && NODE_ENV=testing mocha test/*.js --exit",
     "posttest": "docker-compose down"
   },
   "devDependencies": {

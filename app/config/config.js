@@ -22,4 +22,11 @@ module.exports = {
     host,
     dialect: 'postgres',
   },
+  testing: {
+    username: user,
+    password,
+    database: dbName,
+    host,
+    dialect: 'postgres',
+  },
 };

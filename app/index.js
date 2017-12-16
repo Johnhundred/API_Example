@@ -19,10 +19,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Enable CORS for production
 if (settings.env === 'production') {
+  app.use(cors());
+} else {
   app.use(cors({ origin: false }));
 }
-
-app.use(cors({ origin: false }));
 
 // Enable gzip compression
 app.use(compress());

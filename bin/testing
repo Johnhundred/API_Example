@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-require('dotenv').config({ path: '../testing.env' });
-
 /**
  * Module dependencies.
  */
