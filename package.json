@@ -13,7 +13,7 @@
     "lint": "./node_modules/eslint/bin/eslint.js app/**/*.js bin/**/*.js lib/**/*.js test/**/*.js",
     "pretest": "docker-compose -f docker-compose-test.yml up -d",
     "test": "NODE_ENV=testing npm run lint && NODE_ENV=testing mocha test/*.js --exit",
-    "posttest": "docker-compose down"
+    "posttest": "docker-compose down && docker-compose up -d"
   },
   "devDependencies": {
     "chai": "^4.1.2",
