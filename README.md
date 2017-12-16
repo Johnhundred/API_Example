@@ -4,6 +4,10 @@
 
 In order to view the documentation, open documentation/swagger/dist/index.html in a browser of your choice.
 
+## Continuous Integration (CI)
+
+Currently not set up. Setup with Travis is forthcoming. For now, tests are run locally pre-commit and pre-pull to prevent pushing faulty work - as long as test coverage is maintained.
+
 ## Developer Installation
 
 Pre-requisites:
@@ -31,38 +35,3 @@ docker-compose up
 ```
 
 This will tail the compose logs, and thus free you from having to continually retype docker-compose logs to access them. Terminate the process via Ctrl-c. If you need to run docker and maintain control of the terminal, add the -d flag in (Ex: docker-compose up -d), as this will run docker in the background.
-
-## Sequelize Bugs
-
-### Migrations: Table & Association Creation Bug
-
-This bug appears when a new table is defined, whether a single table or the entire array of tables required by the app.
-
-Due to breakage/changes in Sequelize, tables will be made from their migration file without associations and the associations will then fail to apply. The workaround, at present, is to create the migration and run it, then drop the table and let it be recreated properly next time, as Sequelize has now recorded the full layout of the table.
-
-The table should be dropped through PSQL - either via Heroku CLI:
-
-```
-heroku pg:psql --app APP_NAME_HERE
-drop table "TABLE_NAME_HERE";
-```
-
-Or docker:
-
-```
-docker exec -it CONTAINER_NAME_HERE psql -U postgres -d DATABASE_NAME_HERE
-drop table "TABLE_NAME_HERE";
-```
-
-#### Potential Fixes
-
-1) Define the associations through separate, intermediary tables referencing the ids of the associated tables - this makes the associations structurally independent of the associated tables, but does cause table bloat.
-2) Manually define the columns otherwise created by the associations. (Untested, might cause collisions)
-
-### Database Existence
-
-Database is, at present, assumed to exist when the app is initialized.
-
-#### Fix
-
-For local development, it may be necessary to create the relevant database (local_dev as of this writing) manually.
