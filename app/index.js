@@ -30,7 +30,7 @@ app.use(compress());
 // Basic security
 app.use(helmet());
 
-app.use('api/authentication', authenticationRoute);
+app.use('api/v1/authentication', authenticationRoute);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
