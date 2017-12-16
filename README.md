@@ -17,11 +17,8 @@ Once you have docker and docker-compose installed, running the backend setup loc
 
 ```
 npm install
-docker-compose up -d
-docker ps
-docker exec -it backend_db_1 psql -U postgres
-CREATE DATABASE local_dev
-\q
+npm run dev:local:setup
+npm run test:local:setup
 ```
 
 On following startups, you should only need this command:

@@ -10,10 +10,12 @@
     "prepush": "npm test",
     "start": "node_modules/.bin/sequelize db:migrate && NODE_ENV=production node ./bin/production",
     "dev": "node_modules/.bin/sequelize db:migrate && NODE_ENV=development nodemon ./bin/development",
+    "dev:local:setup": "docker-compose up -d && sleep 2 && docker exec api_db psql -U postgres -c 'CREATE DATABASE local_dev' && sleep 1 && docker-compose down",
     "lint": "./node_modules/eslint/bin/eslint.js app/**/*.js bin/**/*.js lib/**/*.js test/**/*.js",
-    "pretest": "docker-compose -f docker-compose-test.yml up -d",
-    "test": "NODE_ENV=testing npm run lint && NODE_ENV=testing mocha test/*.js --exit",
-    "posttest": "docker-compose down && docker-compose up -d"
+    "pretest": "docker-compose down && docker rm test_db && docker run --name test_db -v ${pwd}/postgres-data:/var/lib/postgresql/data -p 5432:5432 -d postgres:10.0-alpine && sleep 2",
+    "test:local:setup": "npm run pretest && docker exec test_db psql -U postgres -c 'CREATE DATABASE local_dev' && npm run posttest",
+    "test": "NODE_ENV=testing node_modules/.bin/sequelize db:migrate && NODE_ENV=testing npm run lint && NODE_ENV=testing mocha test/*.js --exit",
+    "posttest": "docker stop test_db && docker-compose up -d"
   },
   "devDependencies": {
     "chai": "^4.1.2",
