@@ -11,7 +11,9 @@
     "start": "node_modules/.bin/sequelize db:migrate && node ./bin/production",
     "dev": "node_modules/.bin/sequelize db:migrate && nodemon ./bin/development",
     "lint": "./node_modules/eslint/bin/eslint.js app/**/*.js bin/**/*.js lib/**/*.js test/**/*.js",
-    "test": "npm run lint && mocha test/*.js --exit"
+    "pretest": "docker-compose -f docker-compose-test.yml up -d",
+    "test": "npm run lint && mocha test/*.js --exit",
+    "posttest": "docker-compose down"
   },
   "devDependencies": {
     "chai": "^4.1.2",

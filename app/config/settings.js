@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config({ path: '../../.env' });
 
 const dbUrl = process.env.DATABASE_URL || null;
 let prodName;
