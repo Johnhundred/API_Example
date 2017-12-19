@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const compress = require('compression');
 const helmet = require('helmet');
-const authenticationRoute = require('./routes/authentication');
+const usersRoute = require('./routes/users');
 const logger = require('./modules/logger');
 const settings = require('./config/settings');
 const { ErrorHandler } = require('./modules/error');
@@ -30,7 +30,7 @@ app.use(compress());
 // Basic security
 app.use(helmet());
 
-app.use('api/v1/authentication', authenticationRoute);
+app.use('/api/v1/users', usersRoute);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

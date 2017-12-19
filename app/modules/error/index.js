@@ -18,8 +18,8 @@ module.exports.ErrorHandler = async (err, req, res, next) => { // eslint-disable
   let status = 500;
 
   // If the error has a custom message and/or status, use that instead
-  if (Object.prototype.hasOwnProperty.call(err, 'message')) {
-    eMessage = err.message;
+  if (Object.prototype.hasOwnProperty.call(err, 'msg')) {
+    eMessage = `Error: ${err.msg}`;
   }
 
   if (Object.prototype.hasOwnProperty.call(err, 'status')) {
